@@ -11,7 +11,7 @@
 
 | Nº | Título                                | Enlace                          | Estado     |
 |----|----------------------------------------|----------------------------------|------------|
-| 01 | Introducción a Java y estructuras      | _Pendiente_                      | ⏳         |
+| 01 | Revisión de POO      | SE                      | ✅ Completado         |
 | 02 | TDA Lista Parte 01                     | [Laboratorio 02](./Laboratorio02/README.md) | ✅ Completado |
 
 ---
@@ -39,19 +39,3 @@ Cada laboratorio está organizado en una carpeta individual (`Laboratorio01/`, `
 - [Eclipse IDE for Java](https://www.eclipse.org/downloads/)
 - [Java API Documentation](https://docs.oracle.com/javase/7/docs/api/)
 - [Java Generics Tutorial](https://docs.oracle.com/javase/tutorial/java/generics/)
-
----
-
-## 🗂 Estructura del repositorio
-
-```bash
-/ (raíz)
-│
-├── README.md                ← Índice general del repositorio
-├── Laboratorio01/
-│   ├── README.md            ← Detalles del Laboratorio 01
-│   
-├── Laboratorio02/
-│   ├── README.md            ← Detalles del Laboratorio 02
-│   
-```
