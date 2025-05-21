@@ -73,6 +73,15 @@
 - C.m. Construye responsablemente soluciones haciendo uso de estructuras de datos y algoritmos, siguiendo un proceso adecuado para resolver problemas computacionales que se ajustan al uso de los recursos disponibles y a especificaciones concretas.
 
 ## EJERCICIOS PROPUESTOS
+
+### CÓDIGO FUENTE
+
+El desarrollo de los ejercicios se realizó en el entorno [CS50.dev](https://cs50.dev/), utilizando el lenguaje de programación Java.  
+Los archivos fuente se encuentran organizados por ejercicios y fueron posteriormente documentados en este repositorio.
+
+> Nota: CS50.dev no permite compartir enlaces públicos directos a los archivos. Por lo tanto, el código completo ha sido subido en esta plataforma (GitHub) para su revisión.
+
+
 EJERCICIO 01. Invertir un matriz de enteros
 Ejemplo:
 A=[1 2 3] -> Ain=[3 2 1]
