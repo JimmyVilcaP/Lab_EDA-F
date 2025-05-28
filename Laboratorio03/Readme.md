@@ -28,10 +28,10 @@
 <tr><td>ASIGNATURA:</td><td colspan="5">Estructura de Datos y Algoritmos</td></tr>
 <tr><td>TÍTULO DE LA PRÁCTICA:</td><td colspan="5">TDA lista parte 01</td></tr>
 <tr>
-<td>NÚMERO DE PRÁCTICA:</td><td>02</td><td>AÑO LECTIVO:</td><td>2025 A</td><td>NRO. SEMESTRE:</td><td>III</td>
+<td>NÚMERO DE PRÁCTICA:</td><td>03</td><td>AÑO LECTIVO:</td><td>2025 A</td><td>NRO. SEMESTRE:</td><td>III</td>
 </tr>
 <tr>
-<td>FECHA INICIO::</td><td>14-May-2025</td><td>FECHA FIN:</td><td>21-May-2025</td><td>DURACIÓN:</td><td>02 horas</td>
+<td>FECHA INICIO::</td><td>21-May-2025</td><td>FECHA FIN:</td><td>27-May-2025</td><td>DURACIÓN:</td><td>02 horas</td>
 </tr>
 <tr><td colspan="6">ESTUDIANTE:
 <ul>
