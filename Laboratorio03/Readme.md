@@ -71,6 +71,12 @@ Este laboratorio incluye:
 
 ## EJERCICIOS PROPUESTOS
 
+### ENLACE AL LABORATORIO 03
+
+A continuación se presenta el enlace al cuaderno de Google Colab que contiene los ejercicios correspondientes a las **actividades y problemas propuestos del Laboratorio 03**. Este material debe ser revisado y desarrollado como parte del trabajo práctico.
+
+🔗 [Acceder al cuaderno de ejercicios del Laboratorio 03](https://colab.research.google.com/drive/1RNQ-0Ahra_caUuQPTx-oedzQEIdntowK?usp=sharing)
+
 ### CÓDIGO FUENTE
 
 El desarrollo de los ejercicios se realizó en el entorno [CS50.dev](https://cs50.dev/), utilizando el lenguaje de programación Java.  
