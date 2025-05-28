@@ -172,66 +172,12 @@ Muestra de cambios en clase ListaCircular
 #
 
 ## PROBLEMAS PROPUESTOS
-### MAIN
-- ```sh
-  public class Main {
-      public static void main(String[] args) {
-          ListaDoble lista = new ListaDoble();
-  
-          System.out.println("Insertar al inicio y al final:");
-          lista.insertarInicio(2);
-          lista.insertarFinal(4);
-          lista.insertarInicio(1);
-          lista.insertarFinal(5);
-          lista.mostrarNormal();
-          lista.mostrarReverso();
-  
-          System.out.println("\nEliminar por valor (2):");
-          lista.eliminarPorValor(2);
-          lista.mostrarNormal();
-  
-          System.out.println("\nEliminar por posición (1):");
-          lista.eliminarPorPosicion(1);
-          lista.mostrarNormal();
-  
-          System.out.println("\nEliminar primero y último:");
-          lista.eliminarPrimero();
-          lista.eliminarUltimo();
-          lista.mostrarNormal();
-  
-          System.out.println("\nInsertar para revertir:");
-          lista.insertarFinal(1);
-          lista.insertarFinal(2);
-          lista.insertarFinal(3);
-          lista.insertarFinal(4);
-          lista.mostrarNormal();
-          lista.revertir();
-          lista.mostrarNormal();
-  
-          System.out.println("\nInsertar duplicados y eliminar:");
-          lista.insertarFinal(2);
-          lista.insertarFinal(3);
-          lista.insertarFinal(3);
-          lista.eliminarDuplicados();
-          lista.mostrarNormal();
-  
-          System.out.println("\nInsertar ordenadamente:");
-          ListaDoble ordenada = new ListaDoble();
-          ordenada.insertarOrdenado(4);
-          ordenada.insertarOrdenado(1);
-          ordenada.insertarOrdenado(3);
-          ordenada.insertarOrdenado(2);
-          ordenada.mostrarNormal();
-      }
-  }
-  ```
-  
 📌 Problema 1: Insertar al inicio y al final
 Objetivo: Implementa una lista doblemente enlazada que permita insertar nodos tanto al
 inicio como al final.
 Desafío adicional: Mostrar la lista en orden normal y reverso.
 
-### AL INICIO
+AL INICIO
 - ```sh
   public void insertarInicio(int dato) {
       Nodo nuevo = new Nodo(dato);
@@ -244,8 +190,8 @@ Desafío adicional: Mostrar la lista en orden normal y reverso.
       }
   }
   ```
- ### AL FINAL
- - ```sh
+AL FINAL
+- ```sh
   public void insertarFinal(int dato) {
       Nodo nuevo = new Nodo(dato);
       if (cola == null) {
@@ -257,15 +203,94 @@ Desafío adicional: Mostrar la lista en orden normal y reverso.
       }
   }
   ```
- 
+ MOSTRAR
+- ```sh
+    public void mostrarNormal() {
+        Nodo actual = cabeza;
+        while (actual != null) {
+            System.out.print(actual.dato + " ⇄ ");
+            actual = actual.siguiente;
+        }
+        System.out.println("null");
+    }
+    
+    
+    public void mostrarReverso() {
+        Nodo actual = cola;
+        while (actual != null) {
+            System.out.print(actual.dato + " ⇄ ");
+            actual = actual.anterior;
+        }
+        System.out.println("null");
+    }
+  ```
+
 📌 Problema 2: Eliminar nodos
 Objetivo: Agrega métodos para eliminar nodos por valor, por posición, y eliminar el primer y
 último elemento.
 Desafío adicional: Manejar bien los casos extremos (lista vacía, un solo nodo, nodo no
 encontrado).
+POR VALOR
 - ```sh
-
+    public void eliminarPorValor(int valor) {
+        Nodo actual = cabeza;
+        while (actual != null) {
+            if (actual.dato == valor) {
+                if (actual == cabeza) cabeza = actual.siguiente;
+                if (actual == cola) cola = actual.anterior;
+                if (actual.anterior != null) actual.anterior.siguiente = actual.siguiente;
+                if (actual.siguiente != null) actual.siguiente.anterior = actual.anterior;
+                return;
+            }
+            actual = actual.siguiente;
+        }
+    }
   ```
+POR POSICION
+- ```sh
+    public void eliminarPorPosicion(int posicion) {
+        if (posicion < 0) return;
+        Nodo actual = cabeza;
+        for (int i = 0; actual != null && i < posicion; i++) {
+            actual = actual.siguiente;
+        }
+        if (actual == null) return;
+        if (actual == cabeza) cabeza = actual.siguiente;
+        if (actual == cola) cola = actual.anterior;
+        if (actual.anterior != null) actual.anterior.siguiente = actual.siguiente;
+        if (actual.siguiente != null) actual.siguiente.anterior = actual.anterior;
+    }
+    ```
+PRIMERO Y ÚLTIMO
+- ```sh
+    public void mostrarNormal() {
+        if (cabeza == null) {
+            System.out.println("Lista vacía");
+            return;
+        }
+        Nodo actual = cabeza;
+        while (actual != null) {
+            System.out.print(actual.dato);
+            if (actual.siguiente != null) System.out.print(" ⇄ ");
+            actual = actual.siguiente;
+        }
+        System.out.println();
+    }
+
+    public void mostrarReverso() {
+        if (cola == null) {
+            System.out.println("Lista vacía");
+            return;
+        }
+        Nodo actual = cola;
+        while (actual != null) {
+            System.out.print(actual.dato);
+            if (actual.anterior != null) System.out.print(" ⇄ ");
+            actual = actual.anterior;
+        }
+        System.out.println();
+    }
+    ```
 
 📌 Problema 3: Revertir la lista
 Objetivo: Implementa un método que invierta el orden de los nodos en la lista doblemente
@@ -273,7 +298,17 @@ enlazada.
 Entrada: 1 ⇄ 2 ⇄ 3 ⇄ 4
 Salida esperada: 4 ⇄ 3 ⇄ 2 ⇄ 1
 - ```sh
-
+    public void revertir() {
+        Nodo actual = cabeza;
+        Nodo temp = null;
+        while (actual != null) {
+            temp = actual.anterior;
+            actual.anterior = actual.siguiente;
+            actual.siguiente = temp;
+            actual = actual.anterior;
+        }
+        if (temp != null) cabeza = temp.anterior;
+    }
   ```
 
 📌 Problema 4: Eliminar duplicados
@@ -281,7 +316,22 @@ Objetivo: Eliminar nodos duplicados en una lista doblemente enlazada (por valor)
 Entrada: 2 ⇄ 3 ⇄ 2 ⇄ 5 ⇄ 3
 Salida esperada: 2 ⇄ 3 ⇄ 5
 - ```sh
-
+    public void eliminarDuplicados() {
+        Nodo actual = cabeza;
+        while (actual != null) {
+            Nodo comparador = actual.siguiente;
+            while (comparador != null) {
+                if (comparador.dato == actual.dato) {
+                    if (comparador == cola) cola = comparador.anterior;
+                    comparador.anterior.siguiente = comparador.siguiente;
+                    if (comparador.siguiente != null)
+                        comparador.siguiente.anterior = comparador.anterior;
+                }
+                comparador = comparador.siguiente;
+            }
+            actual = actual.siguiente;
+        }
+    }
   ```
 
 📌 Problema 5: Lista ordenada
@@ -290,7 +340,22 @@ al insertar.
 Entrada de inserciones: 4, 1, 3, 2
 Lista final: 1 ⇄ 2 ⇄ 3 ⇄ 4
 - ```sh
-
+    public void insertarOrdenado(int dato) {
+        Nodo nuevo = new Nodo(dato);
+        if (cabeza == null || dato < cabeza.dato) {
+            insertarInicio(dato);
+            return;
+        }
+        Nodo actual = cabeza;
+        while (actual.siguiente != null && actual.siguiente.dato < dato) {
+            actual = actual.siguiente;
+        }
+        nuevo.siguiente = actual.siguiente;
+        if (actual.siguiente != null) actual.siguiente.anterior = nuevo;
+        nuevo.anterior = actual;
+        actual.siguiente = nuevo;
+        if (nuevo.siguiente == null) cola = nuevo;
+    }
   ```
 
 ## REFERENCIAS
