@@ -74,6 +74,12 @@
 
 ## EJERCICIOS PROPUESTOS
 
+### ENLACE AL LABORATORIO 02
+
+A continuación se presenta el enlace al cuaderno de Google Colab correspondiente al **Laboratorio 02**, el cual contiene únicamente los **Ejercicios 3**. Se recomienda revisar y desarrollar este contenido como parte del trabajo asignado.
+
+🔗 [Acceder al cuaderno de ejercicios del Laboratorio 02](https://colab.research.google.com/drive/1It7GUnp6GxjFwvHcAYo--s68-C6UXPdJ?usp=sharing)
+
 ### CÓDIGO FUENTE
 
 El desarrollo de los ejercicios se realizó en el entorno [CS50.dev](https://cs50.dev/), utilizando el lenguaje de programación Java.  
