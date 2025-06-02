@@ -13,6 +13,8 @@
 |----|----------------------------------------|----------------------------------|------------|
 | 01 | Revisión de POO      | SE                      | ✅ Completado         |
 | 02 | TDA Lista Parte 01                     | [Laboratorio 02](./Laboratorio02/README.md) | ✅ Completado |
+| 03 | TDA Lista Parte 01                     | [Laboratorio 03](./Laboratorio03/README.md) | ✅ Completado |
+| 04 | TDA BST                     | [Laboratorio 04](./Laboratorio04/README.md) | ✅ Completado |
 
 ---
 
