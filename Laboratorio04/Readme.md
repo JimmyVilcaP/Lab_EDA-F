@@ -213,6 +213,98 @@ Luego, pruebe todas sus operaciones implementadas.
       }
   }
   ```
+### Parte 2 (Casa)
+- Estudie la librería Graph Stream para obtener una salida gráfica de su implementación.
+### Clase ArbolVisual  
+- ```sh
+    package com.ejemplo;
+    
+    import org.graphstream.graph.Graph;
+    import org.graphstream.graph.implementations.SingleGraph;
+    
+    public class ArbolVisual<T extends Comparable<T>> {
+        private Nodo<T> raiz;
+        private Graph grafo;
+    
+        public ArbolVisual() {
+            System.setProperty("org.graphstream.ui", "swing");
+            raiz = null;
+            grafo = new SingleGraph("Árbol Binario de Búsqueda");
+            grafo.setStrict(false);
+            grafo.setAutoCreate(true);
+            grafo.setAttribute("ui.stylesheet", 
+                "node { fill-color: #A0C4FF; size: 45px; text-size: 16; }" +
+                "edge { fill-color: #222; }"
+            );
+        }
+    
+        public void insertar(T dato) {
+            raiz = insertarRecursivo(raiz, dato, null);
+        }
+    
+        private Nodo<T> insertarRecursivo(Nodo<T> nodo, T dato, Nodo<T> padre) {
+            if (nodo == null) {
+                Nodo<T> nuevo = new Nodo<>(dato);
+    
+                org.graphstream.graph.Node nodoGrafico = grafo.addNode(dato.toString());
+                nodoGrafico.setAttribute("ui.label", dato.toString());
+    
+                if (padre != null) {
+                    String origen = padre.dato.toString();
+                    String destino = dato.toString();
+                    String idArista = origen + "-" + destino;
+                    grafo.addEdge(idArista, origen, destino, true);
+                }
+    
+                return nuevo;
+            }
+    
+            if (dato.compareTo(nodo.dato) < 0)
+                nodo.izquierdo = insertarRecursivo(nodo.izquierdo, dato, nodo);
+            else if (dato.compareTo(nodo.dato) > 0)
+                nodo.derecho = insertarRecursivo(nodo.derecho, dato, nodo);
+    
+            return nodo;
+        }
+    
+        private int asignarPosiciones(Nodo<T> nodo, int nivel, double xMin, double xMax) {
+            if (nodo == null) return 0;
+    
+            double x = (xMin + xMax) / 2;
+            double y = -nivel;
+    
+            org.graphstream.graph.Node nodoGrafico = grafo.getNode(nodo.dato.toString());
+            nodoGrafico.setAttribute("xy", x, y);
+    
+            int numIzq = asignarPosiciones(nodo.izquierdo, nivel + 1, xMin, x);
+            int numDer = asignarPosiciones(nodo.derecho, nivel + 1, x, xMax);
+    
+            return 1 + numIzq + numDer;
+        }
+    
+        public void mostrar() {
+            int total = contarNodos(raiz);
+            asignarPosiciones(raiz, 0, 0, total);
+            grafo.display(false);
+        }
+    
+        private int contarNodos(Nodo<T> nodo) {
+            if (nodo == null) return 0;
+            return 1 + contarNodos(nodo.izquierdo) + contarNodos(nodo.derecho);
+        }
+    }
+  ```
+  ### Muestra
+  ![image](https://github.com/user-attachments/assets/7c35dfbb-11e3-43b3-b6b8-cb31ae7fcec2)
+## Cuestionario
+¿Explique como es el algoritmo que implementó para obtener el BST con la librería Graph Stream? Recuerde que pueden haber operaciones sobre el BST.?  
+Para implementar la visualización jerárquica de un BST con GraphStream, se combinan dos procesos: la lógica del árbol binario y el posicionamiento gráfico controlado.
+1. Inserción de nodos (operaciones BST). El núcleo del BST se maneja con:
+- Inserción recursiva que sigue el orden clásico (< a izquierda, > a derecha)
+- Creación paralela de elementos gráficos:
+2. Posicionamiento jerárquico
+3. Visualización controlada
+4. Manejo de operaciones dinámicas
 
 ## REFERENCIAS
 - https://www.w3schools.com/java/
