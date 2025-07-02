@@ -92,20 +92,51 @@ Los archivos fuente se encuentran organizados por ejercicios y fueron posteriorm
 - ```sh
     package btreelab;
     
-    public class main {
-        public static void main(String[] args) {
-            int t = 3; // grado minimo
+    import java.io.File;
+    import java.io.FileNotFoundException;
+    import java.util.Scanner;
+    
+    public class Main {
+        public static void main(String[] args) throws FileNotFoundException {
+            int t = 3;
             BTree tree = new BTree(t);
     
-            int[] values = {8, 9, 10, 11, 15, 20, 17};
-            for (int v : values) tree.insert(v);
+            File file = new File("btreelab/datos.csv");
+            Scanner sc = new Scanner(file);
     
-            System.out.println("Recordio del árbol:");
-            tree.traverse();
+            if (sc.hasNextLine()) sc.nextLine(); // Saltar encabezado
     
-            tree.remove(20);
-            System.out.println("\nTras eliminar 10:");
-            tree.traverse();
+            System.out.println("Iniciando inserción...");
+    
+            long startTime = System.currentTimeMillis();
+    
+            while (sc.hasNextLine()) {
+                String line = sc.nextLine();
+                String[] parts = line.split(",");
+                if (parts.length >= 2) {
+                    try {
+                        double value = Double.parseDouble(parts[1]);
+                        tree.insert(value);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Error al parsear: " + parts[1]);
+                    }
+                }
+            }
+    
+            sc.close();
+    
+            long endTime = System.currentTimeMillis();
+            long elapsed = endTime - startTime;
+    
+            System.out.println("Inserción completada.");
+            System.out.println("Tiempo total: " + elapsed + " ms");
+    
+            double[] ejemplos = {0.5, 0.19428027181445773, 0.9582492199402736};
+    
+            for (double key : ejemplos) {
+                System.out.println("Buscando " + key + " ... " +
+                    (tree.search(key) != null ? "Encontrado" : "No encontrado"));
+            }
         }
     }
   ```
@@ -127,17 +158,17 @@ Los archivos fuente se encuentran organizados por ejercicios y fueron posteriorm
             if (root != null) root.traverse();
         }
     
-        public BTreeNode search(int key) {
+        public BTreeNode search(double key) {
             return (root == null) ? null : root.search(key);
         }
     
-        public void insert(int key) {
+        public void insert(double key) {
             if (root == null) {
                 root = new BTreeNode(t, true);
                 root.keys[0] = key;
                 root.numKeys = 1;
             } else {
-                if (root.numKeys == 2*t - 1) {
+                if (root.numKeys == 2 * t - 1) {
                     BTreeNode s = new BTreeNode(t, false);
                     s.children[0] = root;
                     s.splitChild(0, root);
@@ -150,7 +181,7 @@ Los archivos fuente se encuentran organizados por ejercicios y fueron posteriorm
             }
         }
     
-        public void remove(int key) {
+        public void remove(double key) {
             if (root == null) {
                 System.out.println("El árbol está vacío");
                 return;
@@ -168,16 +199,16 @@ Los archivos fuente se encuentran organizados por ejercicios y fueron posteriorm
     package btreelab;
     
     public class BTreeNode {
-        int[] keys;            // claves
-        int minDegree;         // grado mínimo t
-        BTreeNode[] children;  // hijos
-        int numKeys;           // número de claves actuales
-        boolean isLeaf;        // indica si es hoja
+        double[] keys;             // claves
+        int minDegree;             // grado mínimo t
+        BTreeNode[] children;      // hijos
+        int numKeys;               // número de claves actuales
+        boolean isLeaf;            // indica si es hoja
     
         public BTreeNode(int t, boolean leaf) {
             this.minDegree = t;
             this.isLeaf = leaf;
-            this.keys = new int[2 * t - 1];
+            this.keys = new double[2 * t - 1];         // ← cambiado a double
             this.children = new BTreeNode[2 * t];
             this.numKeys = 0;
         }
@@ -193,7 +224,7 @@ Los archivos fuente se encuentran organizados por ejercicios y fueron posteriorm
                 children[i].traverse();
         }
     
-        public BTreeNode search(int key) {
+        public BTreeNode search(double key) {
             int i = 0;
             while (i < numKeys && key > keys[i])
                 i++;
@@ -207,7 +238,7 @@ Los archivos fuente se encuentran organizados por ejercicios y fueron posteriorm
             return children[i].search(key);
         }
     
-        public void insertNonFull(int key) {
+        public void insertNonFull(double key) {
             int i = numKeys - 1;
     
             if (isLeaf) {
@@ -257,14 +288,14 @@ Los archivos fuente se encuentran organizados por ejercicios y fueron posteriorm
             numKeys++;
         }
     
-        public int findKey(int key) {
+        public int findKey(double key) {
             int idx = 0;
             while (idx < numKeys && keys[idx] < key)
                 idx++;
             return idx;
         }
     
-        public void remove(int key) {
+        public void remove(double key) {
             System.out.println("\nFunción remove() aún no implementada completamente.");
         }
     }
