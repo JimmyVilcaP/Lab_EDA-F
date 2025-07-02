@@ -208,7 +208,7 @@ Los archivos fuente se encuentran organizados por ejercicios y fueron posteriorm
         public BTreeNode(int t, boolean leaf) {
             this.minDegree = t;
             this.isLeaf = leaf;
-            this.keys = new double[2 * t - 1];         // ← cambiado a double
+            this.keys = new double[2 * t - 1]; 
             this.children = new BTreeNode[2 * t];
             this.numKeys = 0;
         }
