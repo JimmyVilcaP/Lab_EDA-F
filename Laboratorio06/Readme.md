@@ -300,6 +300,10 @@ Los archivos fuente se encuentran organizados por ejercicios y fueron posteriorm
         }
     }
   ```
+### EJECUCIÓN
+![image](https://github.com/user-attachments/assets/9e205a5b-62ea-4564-85bf-0e7dea1b683f)
+![image](https://github.com/user-attachments/assets/8e27ef78-2780-4017-88cf-03913b55714f)
+
 
 ## REFERENCIAS
 - https://www.w3schools.com/java/
