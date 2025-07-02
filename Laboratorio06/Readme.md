@@ -75,11 +75,11 @@ Crea un paquete btreelab y dentro los siguientes archivos:
 ● BTree.java: clase que encapsula las operaciones del B‐Tree.  
 ● Main.java: programa principal para probar el árbol (lectura, inserción, eliminación).  
 
-### ENLACE AL LABORATORIO 03
+### ENLACE AL LABORATORIO 06
 
-A continuación se presenta el enlace al cuaderno de Google Colab que contiene los ejercicios correspondientes a las **actividades y problemas propuestos del Laboratorio 03**. Este material debe ser revisado y desarrollado como parte del trabajo práctico.
+A continuación se presenta el enlace al cuaderno de Google Colab que contiene los ejercicios correspondientes a las **actividades y problemas propuestos del Laboratorio 06**. Este material debe ser revisado y desarrollado como parte del trabajo práctico.
 
-🔗 [Acceder al cuaderno de ejercicios del Laboratorio 03](https://colab.research.google.com/drive/1RNQ-0Ahra_caUuQPTx-oedzQEIdntowK?usp=sharing)
+🔗 [Acceder al cuaderno de ejercicios del Laboratorio 06](https://colab.research.google.com/drive/1hS5_CQPfKLQiPvkfUPuKh3T2AN92Vpt-?usp=sharing)
 
 ### CÓDIGO FUENTE
 
@@ -110,7 +110,7 @@ Los archivos fuente se encuentran organizados por ejercicios y fueron posteriorm
     }
   ```
   
-### 1. Agregar un método para contar los elementos de la lista.
+### BTree
 - ```sh
     package btreelab;
     
@@ -163,17 +163,111 @@ Los archivos fuente se encuentran organizados por ejercicios y fueron posteriorm
     }
   ```
 
-### 2. Agregar un método para buscar un elemento en la lista.
+### BTreeNode
 - ```sh
-  public boolean buscar(int dato) {
-      if (ultimo == null) return false;
-      Nodo actual = ultimo.siguiente;
-      do {
-          if (actual.dato == dato) return true;
-          actual = actual.siguiente;
-      } while (actual != ultimo.siguiente);
-      return false;
-  }
+    package btreelab;
+    
+    public class BTreeNode {
+        int[] keys;            // claves
+        int minDegree;         // grado mínimo t
+        BTreeNode[] children;  // hijos
+        int numKeys;           // número de claves actuales
+        boolean isLeaf;        // indica si es hoja
+    
+        public BTreeNode(int t, boolean leaf) {
+            this.minDegree = t;
+            this.isLeaf = leaf;
+            this.keys = new int[2 * t - 1];
+            this.children = new BTreeNode[2 * t];
+            this.numKeys = 0;
+        }
+    
+        public void traverse() {
+            int i;
+            for (i = 0; i < numKeys; i++) {
+                if (!isLeaf)
+                    children[i].traverse();
+                System.out.print(keys[i] + " ");
+            }
+            if (!isLeaf)
+                children[i].traverse();
+        }
+    
+        public BTreeNode search(int key) {
+            int i = 0;
+            while (i < numKeys && key > keys[i])
+                i++;
+    
+            if (i < numKeys && keys[i] == key)
+                return this;
+    
+            if (isLeaf)
+                return null;
+    
+            return children[i].search(key);
+        }
+    
+        public void insertNonFull(int key) {
+            int i = numKeys - 1;
+    
+            if (isLeaf) {
+                while (i >= 0 && keys[i] > key) {
+                    keys[i + 1] = keys[i];
+                    i--;
+                }
+                keys[i + 1] = key;
+                numKeys++;
+            } else {
+                while (i >= 0 && keys[i] > key)
+                    i--;
+    
+                if (children[i + 1].numKeys == 2 * minDegree - 1) {
+                    splitChild(i + 1, children[i + 1]);
+    
+                    if (keys[i + 1] < key)
+                        i++;
+                }
+                children[i + 1].insertNonFull(key);
+            }
+        }
+    
+        public void splitChild(int i, BTreeNode y) {
+            BTreeNode z = new BTreeNode(y.minDegree, y.isLeaf);
+            z.numKeys = minDegree - 1;
+    
+            for (int j = 0; j < minDegree - 1; j++)
+                z.keys[j] = y.keys[j + minDegree];
+    
+            if (!y.isLeaf) {
+                for (int j = 0; j < minDegree; j++)
+                    z.children[j] = y.children[j + minDegree];
+            }
+    
+            y.numKeys = minDegree - 1;
+    
+            for (int j = numKeys; j >= i + 1; j--)
+                children[j + 1] = children[j];
+    
+            children[i + 1] = z;
+    
+            for (int j = numKeys - 1; j >= i; j--)
+                keys[j + 1] = keys[j];
+    
+            keys[i] = y.keys[minDegree - 1];
+            numKeys++;
+        }
+    
+        public int findKey(int key) {
+            int idx = 0;
+            while (idx < numKeys && keys[idx] < key)
+                idx++;
+            return idx;
+        }
+    
+        public void remove(int key) {
+            System.out.println("\nFunción remove() aún no implementada completamente.");
+        }
+    }
   ```
 
 ## REFERENCIAS
